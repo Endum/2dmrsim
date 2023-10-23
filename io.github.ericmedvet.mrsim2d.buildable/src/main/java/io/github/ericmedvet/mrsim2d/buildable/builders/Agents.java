@@ -34,6 +34,7 @@ import io.github.ericmedvet.mrsim2d.core.agents.legged.AbstractLeggedHybridModul
 import io.github.ericmedvet.mrsim2d.core.agents.legged.AbstractLeggedHybridRobot;
 import io.github.ericmedvet.mrsim2d.core.agents.legged.NumLeggedHybridModularRobot;
 import io.github.ericmedvet.mrsim2d.core.agents.legged.NumLeggedHybridRobot;
+// import io.github.ericmedvet.mrsim2d.core.agents.selfassemblyvsr.NumSelfAssemblyVSR;
 import io.github.ericmedvet.mrsim2d.core.bodies.Voxel;
 import java.util.List;
 
@@ -137,5 +138,30 @@ public class Agents {
   public static ReactiveGridVSR reactiveGridVSR(
       @Param("body") Grid<ReactiveGridVSR.ReactiveVoxel> body) {
     return new ReactiveGridVSR(body);
+  }
+
+  @SuppressWarnings("unused")
+  public static NumSelfAssemblyVSR numSelfAssemblyVSR(
+      @Param("unitNumber") int unitNumber,
+      @Param(value = "voxelSideLength", dD = 1.0) double voxelSideLength,
+      @Param(value = "voxelMass", dD = 1.0) double voxelMass,
+      @Param(value = "nSignals", dI = 1) int nSignals,
+      @Param("function") NumericalDynamicalSystems.Builder<?, ?> numericalDynamicalSystemBuilder,
+      @Param("sensors") List<Sensor<? super Voxel>> sensors) {
+    return new NumSelfAssemblyVSR(
+        unitNumber,
+        new Voxel.Material(),
+        voxelSideLength,
+        voxelMass,
+        nSignals,
+        numericalDynamicalSystemBuilder.apply(
+            MultivariateRealFunction.varNames(
+                "x",
+                    NumSelfAssemblyVSR.nOfInputs(sensors.size(), nSignals)),
+            MultivariateRealFunction.varNames(
+                "y",
+                    NumSelfAssemblyVSR.nOfOutputs(nSignals))),
+        sensors
+    );
   }
 }
