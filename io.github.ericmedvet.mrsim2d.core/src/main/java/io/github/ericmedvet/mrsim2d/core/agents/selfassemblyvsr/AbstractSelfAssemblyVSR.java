@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractSelfAssemblyVSR implements EmbodiedAgent {
 
-    private final int unitNumber;
+    protected final int unitNumber;
     private final Voxel.Material material;
-    private final List<Anchorable> unitBody;
+    protected final List<Voxel> unitBody;
     private final double voxelSideLength;
     private final double voxelMass;
 
@@ -35,7 +35,7 @@ public abstract class AbstractSelfAssemblyVSR implements EmbodiedAgent {
     @Override
     public void assemble(ActionPerformer actionPerformer) throws ActionException {
         for (int i = 0; i < this.unitNumber; i++) {
-            Anchorable body = actionPerformer
+            Voxel body = actionPerformer
                     .perform(new CreateVoxel(
                             this.voxelSideLength,
                             this.voxelMass,
