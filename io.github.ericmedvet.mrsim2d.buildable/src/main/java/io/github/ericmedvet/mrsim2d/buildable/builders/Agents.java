@@ -140,7 +140,7 @@ public class Agents {
     return new ReactiveGridVSR(body);
   }
 
-  @SuppressWarnings("unused")
+  /*@SuppressWarnings("unused")
   public static NumSelfAssemblyVSR numSelfAssemblyVSR(
       @Param("unitNumber") int unitNumber,
       @Param(value = "voxelSideLength", dD = 1.0) double voxelSideLength,
@@ -163,5 +163,5 @@ public class Agents {
                     NumSelfAssemblyVSR.nOfOutputs(nSignals))),
         sensors
     );
-  }
+  }*/
 }
